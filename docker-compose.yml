@@ -1,0 +1,48 @@
+version: '2'
+
+services:
+
+### Applications Code Container #############################
+
+    applications:
+      image: tianon/true
+      volumes:
+        - ${APPLICATION}:/var/www
+### Apache Server Container #################################
+
+    apache2:
+      build:
+        context: ./apache2
+        args:
+          - PHP_UPSTREAM_CONTAINER=${APACHE_PHP_UPSTREAM_CONTAINER}
+          - PHP_UPSTREAM_PORT=${APACHE_PHP_UPSTREAM_PORT}
+      volumes_from:
+        - applications
+      volumes:
+        - ${APACHE_HOST_LOG_PATH}:/var/log/apache2
+        - ${APACHE_SITES_PATH}:/etc/apache2/sites-available
+      ports:
+        - "${APACHE_HOST_HTTP_PORT}:80"
+        - "${APACHE_HOST_HTTPS_PORT}:443"
+      depends_on:
+        - php-fpm
+      networks:
+        - frontend
+        - backend
+
+
+### Networks Setup ############################################
+
+networks:
+  frontend:
+    driver: "bridge"
+  backend:
+    driver: "bridge"
+
+### Volumes Setup #############################################
+
+volumes:
+  mysql:
+    driver: "local"
+  redis:
+    driver: "local"
