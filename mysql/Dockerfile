@@ -1,5 +1,4 @@
-ARG MYSQL_VERSION=8.0
-FROM mysql:${MYSQL_VERSION}
+FROM mysql:5.7
 
 MAINTAINER Prince Ali Khan <princealikhan08@gmail.com>
 

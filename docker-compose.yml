@@ -94,8 +94,6 @@ services:
     mysql:
       build:
         context: ./mysql
-        args:
-          - MYSQL_VERSION=${MYSQL_VERSION}
       environment:
         - MYSQL_USER=${MYSQL_USER}
         - MYSQL_PASSWORD=${MYSQL_PASSWORD}
