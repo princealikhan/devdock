@@ -28,7 +28,7 @@ services:
       volumes_from:
         - applications
       volumes:
-        - ./workspace/process:/home
+        - ./workspace/home:/home
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       ports:
@@ -80,6 +80,7 @@ services:
       volumes:
         - ${APACHE_HOST_LOG_PATH}:/var/log/apache2
         - ${APACHE_SITES_PATH}:/etc/apache2/sites-available
+        - ${APACHE_SITES_CERTIFICATES}:/home/certificates
       ports:
         - "${APACHE_HOST_HTTP_PORT}:80"
         - "${APACHE_HOST_HTTPS_PORT}:443"
