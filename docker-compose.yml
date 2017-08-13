@@ -29,6 +29,7 @@ services:
         - applications
       volumes:
         - ./workspace/home:/home
+        - ${WORKSPACE_PROCESSES_PATH}:/etc/supervisor/conf.d/
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       ports:
